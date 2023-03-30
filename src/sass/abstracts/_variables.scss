@@ -1,0 +1,60 @@
+// COLORS
+// THEME 1
+// BACKGROUNDS
+$one-main-background: hsl(222, 26%, 31%);
+$one-keypad-background: #232c43;
+$one-display-background: hsl(224, 36%, 15%);
+// KEYS
+$one-keys-background: hsl(30, 25%, 89%);
+$one-keys-shadow: hsl(28, 16%, 65%);
+// OPERATORS
+$one-operators-background: hsl(225, 21%, 49%);
+$one-operators-shadow: hsl(224, 28%, 35%);
+$one-operators-equal-background: #d03f2f;
+$one-operators-equal-shadow: hsl(6, 70%, 34%);
+// TEXT
+$one-light: hsl(0, 0%, 100%);
+$one-dark: hsl(221, 14%, 31%);
+
+
+// THEME 2
+// BACKGROUNDS
+$two-main-background: hsl(0, 0%, 90%);
+$two-keypad-background: hsl(0, 5%, 81%);
+$two-display-background: hsl(0, 0%, 93%);
+// KEYS
+$two-keys-background: hsl(45, 7%, 89%);
+$two-keys-shadow: hsl(35, 11%, 61%);
+// OPERATORS
+$two-operators-background: hsl(185, 42%, 37%);
+$two-operators-shadow: hsl(185, 58%, 25%);
+$two-operators-equal-background: #ca5502;
+$two-operators-equal-shadow: hsl(25, 99%, 27%);
+// TEXT
+$two-light: hsl(0, 0%, 100%);
+$two-dark: hsl(60, 10%, 19%);
+
+
+// THEME 3
+// BACKGROUNDS
+$three-main-background: hsl(268, 75%, 9%);
+$three-keypad-background: hsl(268, 71%, 12%);
+// KEYS
+$three-keys-background: hsl(268, 47%, 21%);
+$three-keys-shadow: hsl(290, 70%, 36%);
+// OPERATORS
+$three-operators-background: hsl(281, 89%, 26%);
+$three-operators-shadow: hsl(285, 91%, 52%);
+$three-operators-equal-background: #00e0d1;
+$three-operators-equal-shadow: hsl(177, 92%, 70%);
+// TEXT
+$three-white: hsl(0, 0%, 100%);
+$three-yellow: hsl(52, 100%, 62%);
+$three-dark:hsl(198, 20%, 13%);
+
+// TYPOGRAPHY
+$default-font-size: 1.6rem;
+$numbers-font-size: 3.2rem;
+
+// SIZES
+$button-width: 1.2rem;

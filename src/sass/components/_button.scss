@@ -1,0 +1,45 @@
+// borderRadius: "50%",
+// width: "12px",
+// height: "12px",
+// margin: "0 8px",
+// cursor: "pointer",
+
+.button {
+    width: $button-width;
+    height: $button-width;
+    border-radius: 50%;
+    margin: 0 2px;
+    cursor: pointer;
+
+    &-one {
+        background-color: $one-operators-equal-background;
+        @include lighten-background-on-hover($one-operators-equal-background, 10%);
+    }
+
+    &-two {
+        background-color: $two-operators-equal-background;
+        @include lighten-background-on-hover($two-operators-equal-background, 10%);
+    }
+
+    &-three {
+        background-color: $three-operators-equal-background;
+        @include lighten-background-on-hover($three-operators-equal-background, 10%);
+    }
+
+    &-number {
+        position: absolute;
+        transform: translateY(-2.5rem);
+
+        &-one {
+            color: $one-light;
+        }
+
+        &-two {
+            color: $two-dark;
+        }
+
+        &-three {
+            color: $three-yellow;
+        }
+    }
+}

@@ -1,0 +1,112 @@
+.calculator {
+    width: 100%;
+
+    &-display {
+        margin-bottom: 5rem;
+        width: 100%;
+        height: 10rem;
+        border-radius: 8px;
+
+        &-text {
+            font-size: $numbers-font-size;
+            font-weight: 700;
+            color: $one-light;
+            text-align: right;
+            padding: 0 1rem;
+            line-height: 10rem;
+
+            &-one {
+                color: $one-light;
+            }
+
+            &-two {
+                color: $two-dark;
+            }
+
+            &-three {
+                color: $three-yellow;
+            }
+        }
+
+        &-one {
+            color: $one-light;
+            background-color: $one-keypad-background;
+        }
+
+        &-two {
+            color: $two-dark;
+            background-color: $two-keypad-background;
+        }
+
+        &-three {
+            color: $three-yellow;
+            background-color: $three-keypad-background;
+        }
+    }
+
+    &-keypad {
+        padding: 1.5rem;
+        border-radius: 8px;
+
+        &-one {
+            background-color: $one-keypad-background;
+        }
+
+        &-two {
+            background-color: $two-keypad-background;
+        }
+
+        &-three {
+            background-color: $three-keypad-background;
+        }
+    }
+
+    &-row {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        &__key {
+            &-one {
+                @include button-styling($one-dark, $one-keys-background, $one-keys-shadow);
+            }
+
+            &-two {
+                @include button-styling($two-dark, $two-keys-background, $two-keys-shadow);
+            }
+
+            &-three {
+                @include button-styling($three-yellow, $three-keys-background, $three-keys-shadow);
+            }
+        }
+
+        &__reset {
+            @include del-reset;
+        }
+
+        &__delete {
+            @include del-reset;
+        }
+
+        &__result {
+            font-size: 2rem;
+
+            &-one {
+                @include button-styling($one-light, $one-operators-equal-background, $one-operators-equal-shadow);
+            }
+
+            &-two {
+                @include button-styling($two-light, $two-operators-equal-background, $two-operators-equal-shadow);
+            }
+
+            &-three {
+                @include button-styling($three-dark, $three-operators-equal-background, $three-operators-equal-shadow);
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.main {
+    height: 100vh;
+    width: 100vw;
+
+    padding: 3rem;
+
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 3rem;
+        position: absolute;
+        @include center-horizontally;
+
+        @include respond(big-desktop) {
+            width: 50%;
+        }
+
+        @include respond(desktop) {
+            width: 60%;
+        }
+
+        @include respond(tab-land) {
+            width: 60%;
+        }
+
+        @include respond(tab-port) {
+            width: 80%;
+        }
+    }
+
+    &-one {
+        background-color: $one-main-background;
+        color: $one-light;
+    }
+
+    &-two {
+        background-color: $two-main-background;
+        color: $two-dark;
+    }
+
+    &-three {
+        background-color: $three-main-background;
+        color: $three-yellow;
+    }
+}

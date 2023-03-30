@@ -1,0 +1,14 @@
+.one-keypad-background {
+    background-color: $one-keypad-background;
+    @include dot-button;
+}
+
+.two-keypad-background {
+    background-color: $two-keypad-background;
+    @include dot-button;
+}
+
+.three-keypad-background {
+    background-color: $three-keypad-background;
+    @include dot-button;
+}
