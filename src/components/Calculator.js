@@ -8,47 +8,26 @@ const Calculator = () => {
   const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  // const handleKeyDown = useCallback(
-  //   (event) => {
-  //     const key = event.key;
-  //     if (/[0-9]/.test(key)) {
-  //       handleDigitClick(parseInt(key, 10));
-  //     } else if (key === ".") {
-  //       handleDecimalClick();
-  //     } else if (key === "+" || key === "-" || key === "*" || key === "/") {
-  //       handleOperatorClick(key);
-  //     } else if (key === "Enter" || key === "=") {
-  //       handleResultClick();
-  //     } else if (key === "Backspace") {
-  //       handleDeleteClick();
-  //     }
-  //   },
-  //   [
-  //     handleDigitClick,
-  //     handleDecimalClick,
-  //     handleOperatorClick,
-  //     handleResultClick,
-  //     handleDeleteClick,
-  //   ]
-  // );
-
-  // useEffect(() => {
-  //   document.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [handleKeyDown]);
-
-  const handleDigitClick = useCallback((digit) => {
-    setDisplayValue((prevDisplayValue) => {
-      if (prevDisplayValue === "0") {
-        return digit.toString();
+  const handleDigitClick = useCallback(
+    (digit) => {
+      if (waitingForSecondOperand) {
+        setDisplayValue(digit);
+        setWaitingForSecondOperand(false);
       } else {
-        return prevDisplayValue + digit.toString();
+        setDisplayValue((prevValue) => {
+          if (typeof prevValue !== "string") {
+            prevValue = String(prevValue);
+          }
+          if (prevValue === "0") {
+            return digit;
+          } else {
+            return prevValue + digit;
+          }
+        });
       }
-    });
-    setWaitingForSecondOperand(false);
-  }, []);
+    },
+    [waitingForSecondOperand]
+  );
 
   const handleDecimalClick = useCallback(() => {
     setDisplayValue((prevDisplayValue) => {
@@ -98,14 +77,14 @@ const Calculator = () => {
     []
   );
 
-  const handleResetClick = useCallback(() => {
+  const handleResetClick = () => {
     setDisplayValue("0");
     setOperator(null);
     setFirstOperand(null);
     setWaitingForSecondOperand(false);
-  }, []);
+  };
 
-  const handleDeleteClick = useCallback(() => {
+  const handleDeleteClick = () => {
     setDisplayValue((prevDisplayValue) => {
       if (prevDisplayValue.length === 1) {
         return "0";
@@ -113,7 +92,7 @@ const Calculator = () => {
         return prevDisplayValue.slice(0, -1);
       }
     });
-  }, []);
+  };
 
   const handleResultClick = useCallback(() => {
     const inputValue = parseFloat(displayValue);
@@ -129,9 +108,9 @@ const Calculator = () => {
   }, [displayValue, operator, firstOperand]);
 
   const handleDisplay = () => {
-    if (displayValue.length > 9) {
-      setDisplayValue(displayValue.slice(0, 9));
-      return displayValue.slice(0, 9);
+    if (displayValue.length > 15) {
+      setDisplayValue(displayValue.slice(0, 15));
+      return displayValue.slice(0, 15);
     } else {
       return displayValue;
     }
