@@ -4,9 +4,15 @@ import ThemeContext from "@/ThemeContext";
 const Calculator = () => {
   const [displayValue, setDisplayValue] = useState("0");
   const [operator, setOperator] = useState(null);
+  const [inputValue, setInputValue] = useState(parseFloat(displayValue));
   const [firstOperand, setFirstOperand] = useState(null);
   const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
+  const [lastClickedDelete, setLastClickedDelete] = useState(false);
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    setInputValue(parseFloat(displayValue));
+  }, [displayValue, inputValue]);
 
   const handleDigitClick = useCallback(
     (digit) => {
@@ -40,41 +46,42 @@ const Calculator = () => {
     setWaitingForSecondOperand(false);
   }, []);
 
-  const handleOperatorClick = useCallback(
-    (nextOperator) => {
-      const inputValue = parseFloat(displayValue);
-
-      if (firstOperand === null) {
-        setFirstOperand(inputValue);
-      } else if (operator) {
-        const currentValue = firstOperand || 0;
-        const newValue = calculateValue(currentValue, inputValue, operator);
-        setFirstOperand(newValue);
-        setDisplayValue(newValue.toString());
-      }
-
-      setWaitingForSecondOperand(true);
-      setOperator(nextOperator);
-    },
-    [displayValue, firstOperand, operator]
+  const calculateValue = useCallback(
+      (firstOperand, secondOperand, operator) => {
+        switch (operator) {
+          case "+":
+            return firstOperand + secondOperand;
+          case "-":
+            return firstOperand - secondOperand;
+          case "*":
+            return firstOperand * secondOperand;
+          case "/":
+            return firstOperand / secondOperand;
+          default:
+            return secondOperand;
+        }
+      },
+      []
   );
 
-  const calculateValue = useCallback(
-    (firstOperand, secondOperand, operator) => {
-      switch (operator) {
-        case "+":
-          return firstOperand + secondOperand;
-        case "-":
-          return firstOperand - secondOperand;
-        case "*":
-          return firstOperand * secondOperand;
-        case "/":
-          return firstOperand / secondOperand;
-        default:
-          return secondOperand;
-      }
-    },
-    []
+  const handleOperatorClick = useCallback(
+      (nextOperator) => {
+        if (lastClickedDelete) {
+          setFirstOperand(inputValue);
+          setLastClickedDelete(false);
+        } else if (firstOperand === null) {
+          setFirstOperand(inputValue);
+        } else if (operator) {
+          const currentValue = firstOperand || 0;
+          const newValue = calculateValue(currentValue, inputValue, operator);
+          setFirstOperand(newValue);
+          setDisplayValue(newValue.toString());
+        }
+
+        setWaitingForSecondOperand(true);
+        setOperator(nextOperator);
+      },
+      [inputValue, firstOperand, operator, lastClickedDelete]
   );
 
   const handleResetClick = () => {
@@ -85,18 +92,18 @@ const Calculator = () => {
   };
 
   const handleDeleteClick = () => {
+    if (displayValue === "0") return;
     setDisplayValue((prevDisplayValue) => {
-      if (prevDisplayValue.length === 1) {
+      if (prevDisplayValue.length === 1 || !prevDisplayValue.length) {
         return "0";
       } else {
-        return prevDisplayValue.slice(0, -1);
+        return prevDisplayValue.slice(0, prevDisplayValue.length - 1);
       }
     });
+    setLastClickedDelete(true);
   };
 
   const handleResultClick = useCallback(() => {
-    const inputValue = parseFloat(displayValue);
-
     if (operator && firstOperand !== null) {
       const currentValue = firstOperand || 0;
       const newValue = calculateValue(currentValue, inputValue, operator);
@@ -105,7 +112,7 @@ const Calculator = () => {
       setOperator(null);
       setWaitingForSecondOperand(false);
     }
-  }, [displayValue, operator, firstOperand]);
+  }, [inputValue, operator, firstOperand, calculateValue]);
 
   const handleDisplay = () => {
     if (displayValue.length > 15) {
